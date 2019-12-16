@@ -32,6 +32,7 @@ namespace Severino.Template.Api
             services.AddRepositories(Configuration);
             services.AddBusiness();
 //            services.AddDocumentations(Configuration);
+            services.AddAppHealthChecks(Configuration);
             services.AddControllers();
         }
 
@@ -48,6 +49,7 @@ namespace Severino.Template.Api
             app.UseRouting();
 //            app.UseDocumentations();
             app.UseAuthorization();
+            app.UseAppHealthChecks();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

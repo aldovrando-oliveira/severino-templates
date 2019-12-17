@@ -72,4 +72,10 @@ https://github.com/OmniSharp/omnisharp-vscode
 | DB_TEMPLATE_POOLING     | Indica se deve ser usado pooling de conexão  |  Boolean |     Não     |     false    |
 | DB_TEMPLATE_POOLING_MIN | Quantidade mínima de conexões no pool        | Numérico |     Não     |       1      |
 | DB_TEMPLATE_POOLING_MAX | Quantidade máxima de conexões no pool        | Numérico |     Não     |       3      |
+| INFLUXDB_URL            | Url para conexão com banco Influx            |   Texto  |     Não     |              |
+| INFLUXDB_DATABASE       | Nome do banco de dados influx                |   Texto  |     Não     |              |
+| INFLUXDB_USERNAME       | Usuário de conexão com o banco influx        |   Texto  |     Não     |              |
+| INFLUXDB_PASSWORD       | Senha de usuário do banco influx             |   Texto  |     Não     |              |
+| INFLUXDB_FLUSH_INTERVAL | Intervalo para envio das métricas            |   Texto  |     Não     |              |
+| METRICS_CONTEXT         | Nome contexto das métricas                   |   Texto  |     Não     |              |
 

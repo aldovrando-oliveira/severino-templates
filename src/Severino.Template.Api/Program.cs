@@ -20,6 +20,10 @@ namespace Severino.Template.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureKestrel((context, options) =>
+                    {
+                        options.AllowSynchronousIO = true;
+                    });
                     webBuilder.UseStartup<Startup>();
                 });
     }

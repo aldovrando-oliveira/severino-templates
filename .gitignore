@@ -427,3 +427,9 @@ $RECYCLE.BIN/
 ## Visual Studio Code
 ##
 .vscode/*
+
+.grafana/**
+.influxdb/**
+
+grafana/**
+influxdb/**

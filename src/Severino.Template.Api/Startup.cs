@@ -31,7 +31,7 @@ namespace Severino.Template.Api
             services.AddGlobalExceptionHandler();
             services.AddRepositories(Configuration);
             services.AddBusiness();
-//            services.AddDocumentations(Configuration);
+            services.AddDocumentations(Configuration);
             services.AddAppHealthChecks(Configuration);
             services.AddAppMetrics(Configuration);
             services.AddControllers();
@@ -48,7 +48,7 @@ namespace Severino.Template.Api
             app.UseGlobalExceptionHandlerMiddleware();
             app.UseHttpsRedirection();
             app.UseRouting();
-//            app.UseDocumentations();
+            app.UseDocumentations();
             app.UseAuthorization();
             app.UseAppHealthChecks();
             app.UseAppMetrics();

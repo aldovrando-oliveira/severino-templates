@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 using Severino.Template.Api.Infra.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerUI;
@@ -26,14 +27,15 @@ namespace Severino.Template.Api.Extensions
             services.AddSwaggerGen(config =>
                 {
                     config.SwaggerDoc("v1", 
-                        new Info 
+                        new OpenApiInfo 
                         { 
                             Title = apiOptions.GetValue<string>("AppName"), 
+                            Description = apiOptions.GetValue<string>("Description"),
                             Version = "v1",
-                            Contact = new Contact
+                            Contact = new OpenApiContact
                             {
                                 Name = apiOptions.GetValue<string>("Owner"),
-                                Url = apiOptions.GetValue<string>("Url"),
+                                Url = new System.Uri(apiOptions.GetValue<string>("Url")),
                                 Email = apiOptions.GetValue<string>("Email")
                             }
                         });

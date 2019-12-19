@@ -48,7 +48,7 @@ Endpoint `/healthchecks` para verificação de saúde da aplicação. Nesse endp
 
 Além do HTTP Status 200 quando sucesso, o endpoint retorna uma lista com os recursos verificados, com seu status e o tempo gasto para cada verificação.
 
-```json
+``` json
 {
   "status": "Healthy",
   "totalDuration": "00:00:00.0956331",
@@ -64,11 +64,28 @@ Além do HTTP Status 200 quando sucesso, o endpoint retorna uma lista com os rec
   ]
 }
 ```
-Para aterar os itens que são verificados no endpoint de health check basta alterar o método `AddAppHealthChecks` no arquivo `Extensions/HealthChecksExtensions`.Saiba mais sobre a configuração de [HealthChecks](https://docs.microsoft.com/pt-br/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-3.1) e os [plugins](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) disponíveis.
+
+Para aterar os itens que são verificados no endpoint de health check basta alterar o método `AddAppHealthChecks` no arquivo `Extensions/HealthChecksExtensions` . Saiba mais sobre a configuração de [HealthChecks](https://docs.microsoft.com/pt-br/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-3.1) e os [plugins](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) disponíveis.
 
 ### Documentação APIs
 
 Para a documentação é utilizado o [Swagger](https://swagger.io/). Ferramenta que provê interface para testes e também um arquivo .json com as configurações de todos os endpoints.
+
+![swagger](./docs/images/swagger.png)
+
+Por padrão a documentação está disponível no endpoint `/api/docs` . A documentação pode ser customizada a partir do arquivo `appsettings.json' alterando a seção exemplificada abaixo:
+
+``` json
+  "ApiDocumentation": {
+    "AppName": "Template Api",
+    "Description": "Template de API com conexão com banco de dados, monitoramento, health-checks e migrations",
+    "Owner": "Template Api Team",
+    "Email": "template.api@gmail.com",
+    "Url": "http://google.com",
+    "DocJson": "/swagger/v1/swagger.json",
+    "DocRoute": "api/docs"
+  }
+```
 
 ## Desenvolvimento
 

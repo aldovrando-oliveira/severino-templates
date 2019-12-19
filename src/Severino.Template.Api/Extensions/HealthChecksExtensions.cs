@@ -27,7 +27,7 @@ namespace Severino.Template.Api.Extensions
             services.AddHealthChecks()
                 .AddMySql(configuration.GetMySqlConnectionString("template"),
                 "TemplateDb",
-                HealthStatus.Unhealthy, 
+                HealthStatus.Unhealthy,
                 new string[] { "database" });
         }
 

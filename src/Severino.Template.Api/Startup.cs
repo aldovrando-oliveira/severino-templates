@@ -28,6 +28,7 @@ namespace Severino.Template.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddResponseCompression();
             services.AddGlobalExceptionHandler();
             services.AddRepositories(Configuration);
             services.AddBusiness();
@@ -45,6 +46,7 @@ namespace Severino.Template.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseResponseCompression();
             app.UseGlobalExceptionHandlerMiddleware();
             app.UseHttpsRedirection();
             app.UseRouting();

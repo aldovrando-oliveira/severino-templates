@@ -47,7 +47,7 @@ METRICS_CONTEXT             => Nome contexto das métricas
 
 Endpoint `/healthchecks` para verificação de saúde da aplicação. Nesse endpoint é feita a validação se os recursos necessários para o bom funcionamento da aplicação estão disponíveis.
 
-Além do HTTP Status 200 quando sucesso, o endpoint retorna uma lista com os recursos verificados, com seu status e o tempo gasto para cada verificação.
+Quando sucesso, além do HTTP Status 200, o endpoint retorna uma lista com os recursos verificados, com seu status e o tempo gasto para cada verificação.
 
 ``` json
 {

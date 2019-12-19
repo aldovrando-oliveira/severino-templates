@@ -6,6 +6,7 @@ Template com recursos pré configurados para facilitar o inicio de novos desenvo
     - [Monitoramento](#monitoramento)
     - [Health Checks](#health-checks)
     - [Documentação APIs](#documentação-apis)
+    - [Migrations](#migrations)
 * [Desenvolvimento](#desenvolvimento)
     - [Requisitos](#requisitos)
     - [Instalação](#instalação)
@@ -76,6 +77,7 @@ Para a documentação é utilizado o [Swagger](https://swagger.io/). Ferramenta 
 Por padrão a documentação está disponível no endpoint `/api/docs` . A documentação pode ser customizada a partir do arquivo `appsettings.json' alterando a seção exemplificada abaixo:
 
 ``` json
+{
   "ApiDocumentation": {
     "AppName": "Template Api",
     "Description": "Template de API com conexão com banco de dados, monitoramento, health-checks e migrations",
@@ -85,7 +87,16 @@ Por padrão a documentação está disponível no endpoint `/api/docs` . A docum
     "DocJson": "/swagger/v1/swagger.json",
     "DocRoute": "api/docs"
   }
+}
 ```
+
+### Migrations
+
+São utilizadas as evoluções de banco automáticas do Entity Framework Core. Foi utilizado o modelo `Code First` e as configurações utilizando o [Fluent API](https://www.entityframeworktutorial.net/efcore/fluent-api-in-entity-framework-core.aspx) das entidades estão em `Repositories/Configurations/Models`.
+
+Saiba mais sobre os [Migrations](https://docs.microsoft.com/pt-br/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli).
+
+> As classes de configuração são inseridas automaticamente ao contexto do banco de dados
 
 ## Desenvolvimento
 

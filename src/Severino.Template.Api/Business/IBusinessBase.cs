@@ -22,7 +22,7 @@ namespace Severino.Template.Api.Business
         /// </summary>
         /// <param name="id">Código da entidade que será atualizado</param>
         /// <param name="entity">Entidade que que será atualizada</param>
-        Task UpdateAsync(Guid id, TEntity entity);
+        Task<TEntity> UpdateAsync(Guid id, TEntity entity);
 
         /// <summary>
         /// Recupera a entidade pelo código

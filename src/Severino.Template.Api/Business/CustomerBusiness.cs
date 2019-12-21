@@ -31,11 +31,12 @@ namespace Severino.Template.Api.Business
         {
             ThrowIfDisposed();
             ThrowIfParameterNull(entity, nameof(entity));
+            ThrowIfParameterNull(entity.Name, nameof(Customer.Name));
 
             IRepository<Customer> repository = GetRepository();
 
             Logger.LogInformation("Inserindo um novo cliente");
-            
+
             try
             {
                 Logger.LogDebug("Inserindo um novo cliente no repositório");
@@ -59,11 +60,12 @@ namespace Severino.Template.Api.Business
         /// <param name="id">Código do cliente</param>
         /// <param name="entity">Objeto com os dados de cliente a serem atualizados</param>
         /// <returns></returns>
-        public override async Task UpdateAsync(Guid id, Customer entity)
+        public override async Task<Customer> UpdateAsync(Guid id, Customer entity)
         {
             ThrowIfDisposed();
             ThrowIfGuidInvalid(id, nameof(id));
             ThrowIfParameterNull(entity, nameof(entity));
+            ThrowIfParameterNull(entity.Name, nameof(Customer.Name));
 
             Customer customer = await GetByIdAsync(id);
 
@@ -87,6 +89,8 @@ namespace Severino.Template.Api.Business
                 Logger.LogError(ex, "Erro ao atualizar informações do cliente: {0}", ex.Message);
                 throw;
             }
+
+            return await GetByIdAsync(id);
         }
 
         /// <summary>
@@ -149,7 +153,7 @@ namespace Severino.Template.Api.Business
             }
 
             if (customer == null)
-                throw new EntityNotFoundException(nameof(customer));
+                throw new EntityNotFoundException(nameof(Customer));
 
             return customer;
         }

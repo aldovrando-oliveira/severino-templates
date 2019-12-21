@@ -427,9 +427,7 @@ $RECYCLE.BIN/
 ## Visual Studio Code
 ##
 .vscode/*
-
-.grafana/**
-.influxdb/**
-
-grafana/**
-influxdb/**
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json

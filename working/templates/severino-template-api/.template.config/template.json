@@ -1,0 +1,13 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Aldo Oliveira",
+    "classifications": [ "Web", "WebApi", "MySql", "Monitoring", "Tests", "C#8" ],
+    "identity": "Severino.Template.Api",
+    "name": "Severino Template Api",
+    "shortName": "severinowebapi",
+    "sourceName": "Severino.Template.Api",
+    "tags": {
+      "language": "C#",
+      "type": "project"
+    }
+  }

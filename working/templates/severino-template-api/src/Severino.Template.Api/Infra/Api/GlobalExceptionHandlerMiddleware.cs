@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Severino.Template.Api.Exceptions;
+using Severino.Template.Api.Infra.Api.ViewMModels;
+using Severino.Template.Api.ViewModels;
 
 namespace Severino.Template.Api.Infra.Api
 {
@@ -33,57 +35,41 @@ namespace Severino.Template.Api.Infra.Api
 
         private static Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
-            string errorCode = null;
+            string errorCode = ex.Data["ErrorCode"]?.ToString();
+            string userMessage = ex.Data["UserMessage"]?.ToString() ?? ex.Message;
+            string developerMessage = ex.Data["DeveloperMessage"]?.ToString() ?? ex.Message;
+            string moreInfo = ex.Data["MoreInfo"]?.ToString() ?? ex.StackTrace;
 
-            if (ex.Data.Contains("ErrorCode"))
-                errorCode = ex.Data["ErrorCode"].ToString();
-
-            ErrorViewModel errorResponse;
+            ErrorViewModel errorResponse = new ErrorViewModel
+            {
+                UserMessage = userMessage,
+                DeveloperMessage = developerMessage,
+                MoreInfo = moreInfo
+            };
+            
             HttpStatusCode statusCode;
 
             switch (ex)
             {
                 case EntityNotFoundException entityNotFoundException:
                     statusCode = HttpStatusCode.NotFound;
-                    errorResponse = new ErrorViewModel
-                    {
-                        Status = (int) HttpStatusCode.NotFound,
-                        Message = entityNotFoundException.Message,
-                        Details = entityNotFoundException.StackTrace,
-                        Code = errorCode ?? ((int) HttpStatusCode.NotFound).ToString()
-                    };
+                    errorResponse.ErrorCode = errorCode ?? ((int) statusCode).ToString();
                     break;
 
                 case ConflictException conflictException:
                     statusCode = HttpStatusCode.Conflict;
-                    errorResponse = new ErrorViewModel
-                    {
-                        Status = (int) HttpStatusCode.Conflict,
-                        Message = conflictException.Message,
-                        Code = errorCode ?? ((int) HttpStatusCode.Conflict).ToString()
-                    };
+                    errorResponse.ErrorCode = errorCode ?? ((int) statusCode).ToString();
                     break;
 
                 case AuthenticationException authenticationException:
                     statusCode = HttpStatusCode.Unauthorized;
-                    errorResponse = new ErrorViewModel
-                    {
-                        Status = (int) HttpStatusCode.Unauthorized,
-                        Message = authenticationException.Message,
-                        Details = authenticationException.StackTrace,
-                        Code = errorCode ?? ((int) HttpStatusCode.Unauthorized).ToString()
-                    };
+                    errorResponse.ErrorCode = errorCode ?? ((int) statusCode).ToString();
                     break;
 
                 default:
                     statusCode = HttpStatusCode.InternalServerError;
-                    errorResponse = new ErrorViewModel
-                    {
-                        Status = (int) HttpStatusCode.InternalServerError,
-                        Message = $"Unexpected error processing request. ({ex.Message})",
-                        Details = ex.StackTrace,
-                        Code = errorCode ?? ((int) HttpStatusCode.InternalServerError).ToString()
-                    };
+                    errorResponse.UserMessage = $"Unexpected error processing request. ({ex.Message})";
+                    errorResponse.ErrorCode = errorCode ?? ((int) statusCode).ToString();
                     break;
             }
 
@@ -91,7 +77,19 @@ namespace Severino.Template.Api.Infra.Api
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int) statusCode;
 
-            return context.Response.WriteAsync(JsonConvert.SerializeObject(errorResponse));
+            var response = new BaseViewModel
+            {
+                Errors = new[] {errorResponse}
+            };
+
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            var responseMessage = JsonConvert.SerializeObject(response, settings);
+
+            return context.Response.WriteAsync(responseMessage);
         }
     }
 }

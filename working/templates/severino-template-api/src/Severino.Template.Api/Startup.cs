@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Severino.Template.Api.Extensions;
 using Severino.Template.Api.Repositories;
 
@@ -28,24 +29,31 @@ namespace Severino.Template.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddResponseCompression();
             services.AddGlobalExceptionHandler();
             services.AddRepositories(Configuration);
             services.AddBusiness();
             services.AddDocumentations(Configuration);
             services.AddAppHealthChecks(Configuration);
             services.AddAppMetrics(Configuration);
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.IgnoreNullValues = true;
+            });
+            services.AddResponseCompression();
+            services.AddLoggerHandler();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMigrations<AppDbContext>();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseLoggerHandler();
             app.UseResponseCompression();
             app.UseGlobalExceptionHandlerMiddleware();
             app.UseHttpsRedirection();
@@ -60,7 +68,6 @@ namespace Severino.Template.Api
                 endpoints.MapControllers();
             });
             
-            app.UseMigrations<AppDbContext>();
         }
     }
 }

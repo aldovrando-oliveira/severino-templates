@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Severino.Template.Api.Infra.Api;
+using Severino.Template.Api.Infra.Api.ViewMModels;
+using Severino.Template.Api.ViewModels;
 
 namespace Severino.Template.Api.Controllers
 {
@@ -10,16 +12,23 @@ namespace Severino.Template.Api.Controllers
     {
         public override BadRequestObjectResult BadRequest(ModelStateDictionary modelState)
         {
-            ModelError error = modelState.SelectMany(x => x.Value.Errors).First();
+            var response = new BaseViewModel();
 
-            ErrorViewModel response = new ErrorViewModel
+            List<ErrorViewModel> errors = new List<ErrorViewModel>();
+
+            foreach (var item in modelState.SelectMany(x => x.Value.Errors))
             {
-                Status = (int) HttpStatusCode.BadRequest,
-                Code = ((int) HttpStatusCode.BadRequest).ToString(),
-                Message = error.ErrorMessage,
-                Details = error.Exception.ToString()
-            };
-                    
+                errors.Add(new ErrorViewModel
+                {
+                    ErrorCode = ((int) HttpStatusCode.BadRequest).ToString(),
+                    UserMessage = item.ErrorMessage,
+                    DeveloperMessage = item.ErrorMessage,
+                    MoreInfo = item.Exception.ToString()
+                });
+            }
+
+            response.Errors = errors.ToArray();
+
             return new BadRequestObjectResult(response);
         }
     }

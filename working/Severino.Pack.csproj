@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <PackageType>Template</PackageType>
-    <PackageVersion>1.0</PackageVersion>
+    <PackageVersion>1.1.0</PackageVersion>
     <PackageId>Severino.Templates</PackageId>
     <Title>Severino Templates</Title>
     <Authors>Aldo Oliveira</Authors>
     <Description>Template de projetos</Description>
-    <PackageTags>dotnet-new;templates;webapi</PackageTags>
+    <PackageTags>dotnet-new;templates;webapi;worker</PackageTags>
 
     <TargetFramework>netstandard2.1</TargetFramework>
 

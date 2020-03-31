@@ -1,0 +1,42 @@
+version: '3'
+services:
+  mysql_dev:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=template
+      - MYSQL_DATABASE=template
+      - MYSQL_USER=teamplate
+      - MYSQL_PASSWORD=!template!
+    expose:
+      - '3306'
+    ports:
+      - '3306:3306'
+
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    ports:
+      - "8083:8083"
+      - "8086:8086"
+      - "8090:8090"
+    env_file:
+      - 'env.influxdb'
+    volumes:
+      # Data persistency
+      # sudo mkdir -p /srv/docker/influxdb/data
+      - ./influxdb/data:/var/lib/influxdb
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    env_file:
+      - 'env.grafana'
+    user: "0"
+    depends_on:
+      - influxdb
+    volumes:
+      # Data persistency
+      # sudo mkdir -p /srv/docker/grafana/data; chown 472:472 /srv/docker/grafana/data
+      - ./grafana/data:/var/lib/grafana      

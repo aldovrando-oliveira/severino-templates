@@ -1,0 +1,13 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Aldo Oliveira",
+    "classifications": [ "Web", "Worker", "MySql", "Monitoring", "Hangfire", "Tests", "C#8" ],
+    "identity": "Severino.Template.Hangfire",
+    "name": "Severino Template Hangfire",
+    "shortName": "severinohangfire",
+    "sourceName": "Severino.Template.Hangfire",
+    "tags": {
+      "language": "C#",
+      "type": "project"
+    }
+  }

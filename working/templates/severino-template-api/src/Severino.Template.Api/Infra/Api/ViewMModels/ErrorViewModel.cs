@@ -1,4 +1,4 @@
-namespace Severino.Template.Api.Infra.Api
+namespace Severino.Template.Api.Infra.Api.ViewMModels
 {
     /// <summary>
     /// View Model que representa o erro
@@ -6,23 +6,23 @@ namespace Severino.Template.Api.Infra.Api
     public class ErrorViewModel
     {
         /// <summary>
-        /// HTTP Status de erro retorno da requisição 
+        /// Mensagem de erro tratada para o usuário
         /// </summary>
-        public int Status { get; set; }
+        public string UserMessage { get; set; }
 
         /// <summary>
-        /// Mensagem descritiva do erro
+        /// Mensagem de erro com informações para o desenvoledor
         /// </summary>
-        public string Message { get; set; }
-
+        public string DeveloperMessage { get; set; }
+        
         /// <summary>
         /// Código de identificação do erro
         /// </summary>
-        public string Code { get; set; }
+        public string ErrorCode { get; set; }
 
         /// <summary>
         /// Informações complementares do erro
         /// </summary>
-        public string Details { get; set; }
+        public string MoreInfo { get; set; }
     }
 }

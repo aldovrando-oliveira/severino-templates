@@ -3,10 +3,10 @@ using System.Linq;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Severino.Template.Api.Infra.Api.ViewMModels;
-using Severino.Template.Api.ViewModels;
+using Severino.Template.Hangfire.Infra.Api.ViewMModels;
+using Severino.Template.Hangfire.ViewModels;
 
-namespace Severino.Template.Api.Controllers
+namespace Severino.Template.Hangfire.Controllers
 {
     public class CustomControllerBase : ControllerBase
     {

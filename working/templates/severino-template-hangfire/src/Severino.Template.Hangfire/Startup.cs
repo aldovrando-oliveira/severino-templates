@@ -12,10 +12,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Severino.Template.Api.Extensions;
-using Severino.Template.Api.Repositories;
+using Severino.Template.Hangfire.Extensions;
+using Severino.Template.Hangfire.Repositories;
 
-namespace Severino.Template.Api
+namespace Severino.Template.Hangfire
 {
     public class Startup
     {
@@ -40,6 +40,7 @@ namespace Severino.Template.Api
                 options.JsonSerializerOptions.IgnoreNullValues = true;
             });
             services.AddResponseCompression();
+            services.AddBackgroundJobs(Configuration);
             services.AddLoggerHandler();
         }
 
@@ -67,7 +68,9 @@ namespace Severino.Template.Api
             {
                 endpoints.MapControllers();
             });
-            
+
+            app.UseBackgroundJobs(Configuration);
+            app.UseJobsDashboard(Configuration);
         }
     }
 }

@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Severino.Template.Api.Exceptions;
-using Severino.Template.Api.Infra.Api.ViewMModels;
-using Severino.Template.Api.ViewModels;
+using Severino.Template.Hangfire.Exceptions;
+using Severino.Template.Hangfire.Infra.Api.ViewMModels;
+using Severino.Template.Hangfire.ViewModels;
 
-namespace Severino.Template.Api.Infra.Api
+namespace Severino.Template.Hangfire.Infra.Api
 {
     public class GlobalExceptionHandlerMiddleware : IMiddleware
     {

@@ -1,12 +1,14 @@
-# Template Api
+# Template Worker para processamento em segundo plano
 
-Template com recursos pré configurados para facilitar o inicio de novos desenvolvimentos
+Template com recursos pré configurados para facilitar o inicio de novos desenvolvimentos de workers para processamentos em segundo plano.
+O projeto também tem suporte para APIs.
 
 * [Recursos](#recursos)
     - [Monitoramento](#monitoramento)
     - [Health Checks](#health-checks)
     - [Documentação APIs](#documentação-apis)
     - [Migrations](#migrations)
+    - [Hangfire](#hangfire)
 * [Desenvolvimento](#desenvolvimento)
     - [Requisitos](#requisitos)
     - [Instalação](#instalação)
@@ -97,6 +99,12 @@ São utilizadas as evoluções de banco automáticas do Entity Framework Core. F
 Saiba mais sobre os [Migrations](https://docs.microsoft.com/pt-br/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli).
 
 > As classes de configuração são inseridas automaticamente ao contexto do banco de dados
+
+### Hangfire
+
+Para processamento em segundo plano foi utilizada a biblioteca [Hangfire](https://www.hangfire.io/). Ela da suporte para agendamento de processamento recorrentes, enfileiramento para processamento. Há um dashboard que possibilita o acompanhamento do processamento em segundo plano e permite algumas ações como por exemplo reprocessar itens com erro.
+
+![hangfire](./docs/images/hangfire.png)
 
 ## Desenvolvimento
 

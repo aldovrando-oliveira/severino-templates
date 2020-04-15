@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Arch.EntityFrameworkCore.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Extensions.Logging;
@@ -44,7 +45,7 @@ namespace Severino.Template.Api.Tests.Business.Customers
                 It.IsAny<Expression<Func<Customer, bool>>>(),
                 It.IsAny<Func<IQueryable<Customer>, IOrderedQueryable<Customer>>>(),
                 It.IsAny<Func<IQueryable<Customer>, IIncludableQueryable<Customer, object>>>(),
-                It.IsAny<bool>()
+                It.IsAny<bool>(), false
             )).ReturnsAsync(default(Customer));
 
             moqUnitOfWork.Setup(x => x.GetRepository<Customer>(It.IsAny<bool>())).Returns(moqRepository.Object);
@@ -77,7 +78,7 @@ namespace Severino.Template.Api.Tests.Business.Customers
                 It.IsAny<Expression<Func<Customer, bool>>>(),
                 It.IsAny<Func<IQueryable<Customer>, IOrderedQueryable<Customer>>>(),
                 It.IsAny<Func<IQueryable<Customer>, IIncludableQueryable<Customer, object>>>(),
-                It.IsAny<bool>()
+                It.IsAny<bool>(), false
             )).ReturnsAsync(customer);
 
             moqRepository.Setup(x => x.Delete(It.IsAny<Customer>()))
@@ -111,7 +112,7 @@ namespace Severino.Template.Api.Tests.Business.Customers
                 It.IsAny<Expression<Func<Customer, bool>>>(),
                 It.IsAny<Func<IQueryable<Customer>, IOrderedQueryable<Customer>>>(),
                 It.IsAny<Func<IQueryable<Customer>, IIncludableQueryable<Customer, object>>>(),
-                It.IsAny<bool>()
+                It.IsAny<bool>(), false
             )).ReturnsAsync(customer);
 
             moqUnitOfWork.Setup(x => x.GetRepository<Customer>(It.IsAny<bool>())).Returns(moqRepository.Object);
@@ -149,7 +150,7 @@ namespace Severino.Template.Api.Tests.Business.Customers
                 It.IsAny<Expression<Func<Customer, bool>>>(),
                 It.IsAny<Func<IQueryable<Customer>, IOrderedQueryable<Customer>>>(),
                 It.IsAny<Func<IQueryable<Customer>, IIncludableQueryable<Customer, object>>>(),
-                It.IsAny<bool>()
+                It.IsAny<bool>(), false
             )).ReturnsAsync(customer).Callback(() =>
             {
                 getAttemps++;

@@ -2,6 +2,7 @@ using System.Linq;
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Arch.EntityFrameworkCore.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -28,7 +29,7 @@ namespace Severino.Template.Api.Tests.Business.Customers
                 It.IsAny<Expression<Func<Customer, bool>>>(),
                 It.IsAny<Func<IQueryable<Customer>, IOrderedQueryable<Customer>>>(),
                 It.IsAny<Func<IQueryable<Customer>, IIncludableQueryable<Customer, object>>>(),
-                It.IsAny<bool>()
+                It.IsAny<bool>(), false
             )).ReturnsAsync(default(Customer));
 
             moqUnitOfWork.Setup(x => x.GetRepository<Customer>(It.IsAny<bool>())).Returns(moqRepository.Object);
@@ -69,7 +70,7 @@ namespace Severino.Template.Api.Tests.Business.Customers
                 It.IsAny<Expression<Func<Customer, bool>>>(),
                 It.IsAny<Func<IQueryable<Customer>, IOrderedQueryable<Customer>>>(),
                 It.IsAny<Func<IQueryable<Customer>, IIncludableQueryable<Customer, object>>>(),
-                It.IsAny<bool>()
+                It.IsAny<bool>(), false
             )).ThrowsAsync(new Exception("Erro ao consultar cliente no banco de dados"));
 
             moqUnitOfWork.Setup(x => x.GetRepository<Customer>(It.IsAny<bool>())).Returns(moqRepository.Object);
@@ -102,7 +103,7 @@ namespace Severino.Template.Api.Tests.Business.Customers
                 It.IsAny<Expression<Func<Customer, bool>>>(),
                 It.IsAny<Func<IQueryable<Customer>, IOrderedQueryable<Customer>>>(),
                 It.IsAny<Func<IQueryable<Customer>, IIncludableQueryable<Customer, object>>>(),
-                It.IsAny<bool>()
+                It.IsAny<bool>(), false
             )).ReturnsAsync(customer);
 
             moqUnitOfWork.Setup(x => x.GetRepository<Customer>(It.IsAny<bool>())).Returns(moqRepository.Object);

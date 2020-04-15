@@ -54,8 +54,6 @@ namespace Severino.Template.Api.Infra.Api
             });
 
             _logger.LogInformation(logMessage);
-
-
         }
 
         private async Task<HttpLog> LogRequest(HttpContext context)

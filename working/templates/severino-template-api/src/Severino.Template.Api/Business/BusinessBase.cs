@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Arch.EntityFrameworkCore.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Severino.Template.Api.Models;
@@ -10,8 +11,7 @@ namespace Severino.Template.Api.Business
     /// Classe base de negócios
     /// </summary>
     /// <typeparam name="TEntity">Tipo da entidade que será manipulada pela classe de negócios</typeparam>
-    public abstract class BusinessBase<TEntity> : IBusinessBase<TEntity>
-        where TEntity : class, IModelBase
+    public abstract class BusinessBase<TEntity> : IBusinessBase<TEntity> where TEntity : class, IModelBase
     {
         private bool _disposed;
         protected ILogger<BusinessBase<TEntity>> Logger;
@@ -77,44 +77,10 @@ namespace Severino.Template.Api.Business
         /// <summary>
         /// Cria uma exceção quando a classe já teve o métido Dispose utilizado
         /// </summary>
-        protected virtual void ThrowIfDisposed()
+        public virtual void ThrowIfDisposed()
         {
             if (_disposed)
                 throw new ObjectDisposedException(GetType().Name);
-        }
-
-        /// <summary>
-        /// Valida se o parâmetro informado é valido
-        /// </summary>
-        /// <param name="guid">Valor Guid que deve ser validado</param>
-        /// <param name="name">Nome do parâmetro</param>
-        /// <param name="acceptEmpty">Indica se deve ser considerado o valor Guid.Empty</param>
-        protected virtual void ThrowIfGuidInvalid(Guid guid, string name, bool acceptEmpty = false)
-        {
-            if (Guid.Empty == guid && !acceptEmpty)
-                throw new ArgumentException("Parameter Invalid", name);
-        }
-
-        /// <summary>
-        /// Valida se o parâmetro informado não é nulo
-        /// </summary>
-        /// <param name="parameter">Parâmetro que será validado</param>
-        /// <param name="name">Nome do parâmetro</param>
-        protected virtual void ThrowIfParameterNull(object parameter, string name)
-        {
-            if (parameter == null)
-                throw new ArgumentNullException(name);
-        }
-
-        /// <summary>
-        /// Valida se o parâmetro informado não é nulo
-        /// </summary>
-        /// <param name="parameter">Parâmetro que será validado</param>
-        /// <param name="name">Nome do parâmetro</param>
-        public virtual void ThrowIfParameterNull(string parameter, string name)
-        {
-            if (string.IsNullOrWhiteSpace(parameter))
-                throw new ArgumentNullException(name);
         }
 
         /// <summary>

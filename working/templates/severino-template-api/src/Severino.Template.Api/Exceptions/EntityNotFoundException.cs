@@ -23,6 +23,11 @@ namespace Severino.Template.Api.Exceptions
         /// Entidade que não foi encontrada
         /// </summary>
         public string Entity { get; }
+        
+        /// <summary>
+        /// Código para identificação do erro
+        /// </summary>
+        public string ErrorCode { get; }
 
         /// <summary>
         /// Retorna uma nova instância de <see cref="EntityNotFoundException"/>
@@ -38,11 +43,12 @@ namespace Severino.Template.Api.Exceptions
         /// Retorna uma nova instância de <see cref="EntityNotFoundException"/>
         /// </summary>
         /// <param name="entity">Nome da entidade que não foi encontrada</param>
-        /// <param name="message">Mensagem descritiva do erro</param>
-        public EntityNotFoundException(string entity, string message)
-            : base(message)
+        /// <param name="errorCode">Código de identificação do erro</param>
+        public EntityNotFoundException(string entity, string errorCode)
+            : base ($"#{errorCode} - {entity} not found")
         {
             Entity = entity;
+            ErrorCode = errorCode;
         }
     }
 }
